@@ -26,6 +26,8 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     
+    
+    
     <!-- Bean을 정의할 xml 파일을 지정한다. -->
     <context-param>
     	<param-name>contextConfigLocation</param-name>
