@@ -4,26 +4,34 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	   					   http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/legacy1" />
+	<!-- DB연결 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/legacy1" />
 		<property name="username" value="root" />
 		<property name="password" value="1234" />
 	</bean>
 
-	<!-- SqlSessionFactory 객체 주입 -->
-	<!-- <bean id="sqlSessionFactory"
+	<!-- SqlSessionFactory 객체 주입, 마이바티스 설정 -->
+	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:mapper/*Mapper_SQL.xml"></property>
-	</bean> -->
-	
-	
-	
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-	<property name="dataSource" ref="dataSource"></property>
+		<!-- 마이바티스 환경설정 경로 -->
+		<property name="configLocation"
+			value="classpath:/mybatis-config.xml"></property>
+		<!--마이바티스 sql 구문 파일경로(**/모든파일이름/) -->
+		<property name="mapperLocations"
+			value="classpath:mapper/**/*Mapper_SQL.xml"></property>
+	</bean>
+
+	<!--마이바티스 세션 생성 -->
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 
 </beans>
